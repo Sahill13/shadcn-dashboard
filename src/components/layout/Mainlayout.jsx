@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
 import { Sidebar } from "./Sidebar";
-import { Menu, X } from "lucide-react"; // Add these imports for icons
+import { Menu, X } from "lucide-react";
 
 export function MainLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -12,22 +12,18 @@ export function MainLayout() {
 
   return (
     <div className="flex h-screen overflow-hidden bg-gray-50">
-      {/* Desktop Sidebar */}
       <div className="hidden md:block md:w-64 md:flex-shrink-0">
         <Sidebar />
       </div>
 
-      {/* Mobile Sidebar - shows when menu is open */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 z-40 flex md:hidden">
-          {/* Overlay */}
           <div 
             className="fixed inset-0 bg-gray-600 bg-opacity-75" 
             onClick={toggleMobileMenu}
             aria-hidden="true"
           ></div>
           
-          {/* Sidebar */}
           <div className="relative flex w-full max-w-xs flex-1 flex-col bg-white">
             <div className="absolute top-0 right-0 pt-2 pr-2">
               <button
@@ -45,7 +41,6 @@ export function MainLayout() {
       )}
 
       <div className="flex-1 overflow-auto">
-        {/* Mobile top navigation */}
         <div className="sticky top-0 z-10 flex items-center bg-white shadow-sm md:hidden">
           <button
             type="button"
@@ -60,7 +55,6 @@ export function MainLayout() {
           </div>
         </div>
         
-        {/* Main content */}
         <main className="p-4 sm:p-6">
           <Outlet />
         </main>

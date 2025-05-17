@@ -110,10 +110,3 @@ export function Sidebar() {
     </div>
   );
 }
-
-// Add this to your global CSS file for better touch targets
-/* 
-.touch-target-min-h {
-  min-height: 44px;
-}
-*/

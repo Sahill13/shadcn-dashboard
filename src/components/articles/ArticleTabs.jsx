@@ -33,7 +33,6 @@ export function ArticleTabs() {
     <div className="space-y-3 sm:space-y-4 bg-white rounded-md shadow-sm p-4 sm:p-6">
       <h1 className="text-xl sm:text-2xl font-bold">Articles</h1>
       <div className="border-b-0">
-        {/* Changed to flex-col on xs screens, and row on sm+ screens */}
         <div className="flex flex-col sm:flex-row sm:space-x-1 space-y-1 sm:space-y-0 rounded-lg bg-blue-50 p-1">
           {["generated", "published", "scheduled", "archived"].map((tab) => (
             <button
@@ -46,7 +45,6 @@ export function ArticleTabs() {
                   : "text-gray-600 hover:bg-blue-100"}
               `}
             >
-              {/* Shorter text on mobile */}
               <span className="sm:hidden">
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </span>

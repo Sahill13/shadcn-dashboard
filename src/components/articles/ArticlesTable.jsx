@@ -78,7 +78,6 @@ export function ArticlesTable({ articles, isLoading }) {
 
   return (
     <div className="w-full">
-      {/* Added overflow-x-auto to enable horizontal scrolling on mobile */}
       <div className="rounded-md border overflow-x-auto">
         <table className="w-full divide-y divide-gray-200 min-w-[640px]">
           <thead className="bg-gray-50">

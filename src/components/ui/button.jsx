@@ -24,7 +24,7 @@ export function Button({
     sm: responsiveSize ? "h-8 md:h-9 rounded-md px-2.5 md:px-3 text-xs" : "h-9 rounded-md px-3 text-xs",
     lg: responsiveSize ? "h-10 md:h-11 rounded-md px-6 md:px-8 text-base" : "h-11 rounded-md px-8",
     icon: responsiveSize ? "h-8 w-8 md:h-9 md:w-9" : "h-9 w-9",
-    mobile: "h-10 py-2 px-3 text-sm", // Touch-friendly size specifically for mobile
+    mobile: "h-10 py-2 px-3 text-sm", 
   };
   
   return (

@@ -21,10 +21,8 @@ export function Dashboard() {
           </svg>
         </Link>
         
-        {/* You might add more quick access links here */}
       </div>
       
-      {/* Consider adding summary cards here for a more complete dashboard */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-4">
         <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
           <h3 className="font-medium mb-1">Generated Articles</h3>
