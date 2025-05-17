@@ -36,32 +36,33 @@ export function Sidebar() {
   const isActive = (href) => location.pathname === href;
 
   return (
-    <div className="h-full w-64 border-r bg-white shadow-sm">
+    <div className="h-full w-full md:w-64 border-r bg-white shadow-sm flex flex-col">
       <div className="flex h-14 items-center justify-between border-b px-4">
         <Link to="/" className="flex items-center">
-          <span className="text-xl font-bold">Dash</span>
+          <span className="text-lg md:text-xl font-bold">Dash</span>
         </Link>
-        <div className="flex items-center gap-2">
-          <div className="h-6 w-6 rounded-full bg-purple-500"></div>
-          <span className="text-sm">amazon.com</span>
-          <ChevronDown className="h-4 w-4" />
+        <div className="flex items-center gap-1 md:gap-2">
+          <div className="h-5 w-5 md:h-6 md:w-6 rounded-full bg-purple-500"></div>
+          <span className="text-xs md:text-sm truncate max-w-[100px]">amazon.com</span>
+          <ChevronDown className="h-3 w-3 md:h-4 md:w-4" />
         </div>
       </div>
 
-      <div className="h-[calc(100vh-3.5rem)] overflow-auto py-2">
-        <nav className="space-y-1 px-2">
+      <div className="flex-1 overflow-y-auto overflow-x-hidden py-2">
+        <nav className="space-y-0.5 md:space-y-1 px-2">
           {navigation.map((item) => {
             const IconComponent = iconComponents[item.icon] || File;
             const isItemExpanded = expanded.includes(item.title);
             const hasChildren = item.children && item.children.length > 0;
 
             return (
-              <div key={item.title} className="mb-1">
+              <div key={item.title} className="mb-0.5 md:mb-1">
                 <Link
                   to={hasChildren ? "#" : item.href}
                   className={`
-                    flex items-center rounded-md px-3 py-2 text-sm font-medium
+                    flex items-center rounded-md px-2 md:px-3 py-2 text-sm font-medium
                     ${isActive(item.href) && !hasChildren ? "bg-gray-100" : "hover:bg-gray-50"}
+                    touch-target-min-h
                   `}
                   onClick={(e) => {
                     if (hasChildren) {
@@ -70,32 +71,33 @@ export function Sidebar() {
                     }
                   }}
                 >
-                  <IconComponent className="mr-2 h-4 w-4 text-gray-500" />
-                  <span>{item.title}</span>
+                  <IconComponent className="mr-2 h-4 w-4 text-gray-500 flex-shrink-0" />
+                  <span className="truncate">{item.title}</span>
                   {hasChildren && (
                     <div className="ml-auto">
                       {isItemExpanded ? (
-                        <ChevronDown className="h-4 w-4" />
+                        <ChevronDown className="h-4 w-4 flex-shrink-0" />
                       ) : (
-                        <ChevronRight className="h-4 w-4" />
+                        <ChevronRight className="h-4 w-4 flex-shrink-0" />
                       )}
                     </div>
                   )}
                 </Link>
                 
                 {hasChildren && isItemExpanded && (
-                  <div className="mt-1 ml-4 space-y-1">
+                  <div className="mt-0.5 md:mt-1 ml-2 md:ml-4 space-y-0.5 md:space-y-1">
                     {item.children.map((child) => (
                       <Link
                         key={child.title}
                         to={child.href}
                         className={`
-                          block rounded-md px-3 py-2 text-sm font-medium
+                          block rounded-md px-2 md:px-3 py-2 text-sm font-medium
                           ${isActive(child.href) ? "bg-gray-100" : "hover:bg-gray-50"}
                           ${child.active ? "text-blue-500" : ""}
+                          touch-target-min-h
                         `}
                       >
-                        {child.title}
+                        <span className="truncate">{child.title}</span>
                       </Link>
                     ))}
                   </div>
@@ -108,3 +110,10 @@ export function Sidebar() {
     </div>
   );
 }
+
+// Add this to your global CSS file for better touch targets
+/* 
+.touch-target-min-h {
+  min-height: 44px;
+}
+*/

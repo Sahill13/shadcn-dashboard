@@ -4,7 +4,7 @@ import { ArrowUpDown, ChevronUp, ChevronDown } from "lucide-react";
 export function ArticleTableSkeleton() {
   return (
     <div className="w-full animate-pulse">
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-hidden">
         <div className="h-10 bg-gray-200"></div>
         {[...Array(5)].map((_, i) => (
           <div key={i} className="h-16 border-t bg-gray-100"></div>
@@ -78,11 +78,12 @@ export function ArticlesTable({ articles, isLoading }) {
 
   return (
     <div className="w-full">
-      <div className="rounded-md border">
-        <table className="w-full divide-y divide-gray-200">
+      {/* Added overflow-x-auto to enable horizontal scrolling on mobile */}
+      <div className="rounded-md border overflow-x-auto">
+        <table className="w-full divide-y divide-gray-200 min-w-[640px]">
           <thead className="bg-gray-50">
             <tr>
-              <th className="w-10 px-3 py-3.5">
+              <th className="w-10 px-2 sm:px-3 py-3">
                 <input
                   type="checkbox"
                   className="h-4 w-4 rounded border-gray-300 text-blue-600"
@@ -91,7 +92,7 @@ export function ArticlesTable({ articles, isLoading }) {
                 />
               </th>
               <th 
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer"
+                className="px-2 sm:px-3 py-3 text-left text-xs sm:text-sm font-semibold text-gray-900 cursor-pointer"
                 onClick={() => handleSort("title")}
               >
                 <div className="flex items-center">
@@ -100,7 +101,7 @@ export function ArticlesTable({ articles, isLoading }) {
                 </div>
               </th>
               <th 
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer"
+                className="px-2 sm:px-3 py-3 text-left text-xs sm:text-sm font-semibold text-gray-900 cursor-pointer hidden sm:table-cell"
                 onClick={() => handleSort("keyword")}
               >
                 <div className="flex items-center">
@@ -109,7 +110,7 @@ export function ArticlesTable({ articles, isLoading }) {
                 </div>
               </th>
               <th 
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer w-[100px]"
+                className="px-2 sm:px-3 py-3 text-left text-xs sm:text-sm font-semibold text-gray-900 cursor-pointer w-[80px] sm:w-[100px]"
                 onClick={() => handleSort("words")}
               >
                 <div className="flex items-center">
@@ -118,29 +119,29 @@ export function ArticlesTable({ articles, isLoading }) {
                 </div>
               </th>
               <th 
-                className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 cursor-pointer w-[140px]"
+                className="px-2 sm:px-3 py-3 text-left text-xs sm:text-sm font-semibold text-gray-900 cursor-pointer w-[100px] sm:w-[140px] hidden md:table-cell"
                 onClick={() => handleSort("createdOn")}
               >
                 <div className="flex items-center">
-                  Created On
+                  Created
                   {renderSortIcon("createdOn")}
                 </div>
               </th>
-              <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 w-[100px]">Action</th>
-              <th className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900 w-[80px]">Publish</th>
+              <th className="px-2 sm:px-3 py-3 text-center text-xs sm:text-sm font-semibold text-gray-900 w-[70px] sm:w-[100px]">Action</th>
+              <th className="px-2 sm:px-3 py-3 text-center text-xs sm:text-sm font-semibold text-gray-900 w-[60px] sm:w-[80px] hidden sm:table-cell">Publish</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
             {sortedArticles.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-3 py-4 text-center text-sm text-gray-500">
+                <td colSpan={7} className="px-2 sm:px-3 py-4 text-center text-xs sm:text-sm text-gray-500">
                   No articles found.
                 </td>
               </tr>
             ) : (
               sortedArticles.map(article => (
                 <tr key={article.id} className="hover:bg-gray-50">
-                  <td className="px-3 py-4 text-center">
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-center">
                     <input
                       type="checkbox"
                       className="h-4 w-4 rounded border-gray-300 text-blue-600"
@@ -148,18 +149,20 @@ export function ArticlesTable({ articles, isLoading }) {
                       onChange={() => toggleArticle(article.id)}
                     />
                   </td>
-                  <td className="px-3 py-4 text-sm text-gray-900">{article.title}</td>
-                  <td className="px-3 py-4 text-sm text-gray-600">
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm text-gray-900 max-w-[150px] sm:max-w-none truncate">
+                    {article.title}
+                  </td>
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 hidden sm:table-cell">
                     {article.keyword} {article.traffic}
                   </td>
-                  <td className="px-3 py-4 text-sm text-gray-600">{article.words}</td>
-                  <td className="px-3 py-4 text-sm text-gray-600">{article.createdOn}</td>
-                  <td className="px-3 py-4 text-sm text-center">
-                    <button className="inline-flex items-center justify-center rounded-md bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm border border-gray-300 hover:bg-gray-50 focus:outline-none">
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">{article.words}</td>
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 hidden md:table-cell">{article.createdOn}</td>
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-center">
+                    <button className="inline-flex items-center justify-center rounded-md bg-white px-2 py-1 sm:px-2.5 sm:py-1.5 text-xs font-medium text-gray-700 shadow-sm border border-gray-300 hover:bg-gray-50 focus:outline-none">
                       View
                     </button>
                   </td>
-                  <td className="px-3 py-4 text-sm text-center">
+                  <td className="px-2 sm:px-3 py-3 sm:py-4 text-center hidden sm:table-cell">
                     {article.status === "published" ? (
                       <div className="flex justify-center">
                         <div className="h-2 w-2 rounded-full bg-blue-500"></div>
@@ -175,8 +178,8 @@ export function ArticlesTable({ articles, isLoading }) {
         </table>
       </div>
       
-      <div className="flex justify-between items-center mt-4">
-        <div className="text-sm text-gray-500">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mt-4 gap-3 sm:gap-0">
+        <div className="text-xs sm:text-sm text-gray-500">
           Total: {articles.length} Article Titles | Show 
           <select className="mx-1 px-1 py-0.5 rounded border text-xs">
             <option>10</option>
@@ -186,11 +189,11 @@ export function ArticlesTable({ articles, isLoading }) {
           entries per page
         </div>
         <div className="flex items-center space-x-2">
-          <button className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none" disabled>
+          <button className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs sm:text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none" disabled>
             <ChevronUp className="h-4 w-4 rotate-90" />
           </button>
-          <span className="text-sm">1 / 1</span>
-          <button className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none" disabled>
+          <span className="text-xs sm:text-sm">1 / 1</span>
+          <button className="inline-flex items-center justify-center rounded-md border border-gray-300 px-2 py-1 text-xs sm:text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none" disabled>
             <ChevronDown className="h-4 w-4 rotate-90" />
           </button>
         </div>
